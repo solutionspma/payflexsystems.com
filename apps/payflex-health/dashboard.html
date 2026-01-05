@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provider Dashboard | PayFlex Health</title>
+  <link rel="stylesheet" href="/shared/styles/variables.css">
+  <link rel="stylesheet" href="/shared/styles/base.css">
+  <link rel="stylesheet" href="/shared/styles/layout.css">
+  <link rel="stylesheet" href="/shared/styles/dashboard.css">
+</head>
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>PayFlex Health</h1>
+        <span class="badge">Provider</span>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="overview">
+          <span class="icon">📊</span>
+          Overview
+        </a>
+        <a href="#" class="nav-item" data-section="transactions">
+          <span class="icon">💳</span>
+          Transactions
+        </a>
+        <a href="#" class="nav-item" data-section="patients">
+          <span class="icon">👥</span>
+          Patients
+        </a>
+        <a href="#" class="nav-item" data-section="calls">
+          <span class="icon">📞</span>
+          Call Logs
+        </a>
+        <a href="#" class="nav-item" data-section="meetings">
+          <span class="icon">🎥</span>
+          Meetings
+        </a>
+        <a href="#" class="nav-item" data-section="reports">
+          <span class="icon">📈</span>
+          Reports
+        </a>
+        <a href="#" class="nav-item" data-section="settings">
+          <span class="icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">MD</div>
+          <div class="user-details">
+            <span class="name">Metro Dental</span>
+            <span class="role">Active Provider</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <header class="dashboard-header">
+        <h2>Dashboard</h2>
+        <div class="header-actions">
+          <button class="btn-icon" id="btn-start-call">
+            <span class="icon">📞</span>
+            Start Call
+          </button>
+          <button class="btn-primary" id="btn-new-financing">
+            + New Financing
+          </button>
+        </div>
+      </header>
+
+      <!-- Overview Section -->
+      <section id="section-overview" class="dashboard-section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-content">
+              <span class="stat-value">$24,500</span>
+              <span class="stat-label">This Month</span>
+            </div>
+            <span class="stat-trend positive">+12%</span>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-content">
+              <span class="stat-value">18</span>
+              <span class="stat-label">Active Loans</span>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <span class="stat-value">42</span>
+              <span class="stat-label">Total Patients</span>
+            </div>
+            <span class="stat-trend positive">+5 new</span>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+              <span class="stat-value">94%</span>
+              <span class="stat-label">Approval Rate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Transactions</h3>
+              <a href="#" class="link">View All</a>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Amount</th>
+                  <th>Plan</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sarah Johnson</td>
+                  <td>$2,500</td>
+                  <td>12 mo @ 9.99%</td>
+                  <td><span class="status active">Active</span></td>
+                  <td>Dec 11, 2025</td>
+                </tr>
+                <tr>
+                  <td>Michael Chen</td>
+                  <td>$1,200</td>
+                  <td>6 mo @ 0%</td>
+                  <td><span class="status active">Active</span></td>
+                  <td>Dec 10, 2025</td>
+                </tr>
+                <tr>
+                  <td>Emily Davis</td>
+                  <td>$800</td>
+                  <td>3 mo @ 0%</td>
+                  <td><span class="status pending">Pending</span></td>
+                  <td>Dec 10, 2025</td>
+                </tr>
+                <tr>
+                  <td>James Wilson</td>
+                  <td>$3,400</td>
+                  <td>24 mo @ 12.99%</td>
+                  <td><span class="status active">Active</span></td>
+                  <td>Dec 9, 2025</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Calls</h3>
+              <a href="#" class="link">View All</a>
+            </div>
+            <div class="call-list">
+              <div class="call-item">
+                <div class="call-icon incoming">📞</div>
+                <div class="call-details">
+                  <span class="call-name">Sarah Johnson</span>
+                  <span class="call-info">Payment question • 4 min</span>
+                </div>
+                <span class="call-time">2 hours ago</span>
+              </div>
+              <div class="call-item">
+                <div class="call-icon outgoing">📞</div>
+                <div class="call-details">
+                  <span class="call-name">Michael Chen</span>
+                  <span class="call-info">Follow-up • 8 min</span>
+                </div>
+                <span class="call-time">Yesterday</span>
+              </div>
+              <div class="call-item">
+                <div class="call-icon video">🎥</div>
+                <div class="call-details">
+                  <span class="call-name">Team Meeting</span>
+                  <span class="call-info">Internal • 32 min</span>
+                </div>
+                <span class="call-time">Dec 10</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transactions Section -->
+      <section id="section-transactions" class="dashboard-section">
+        <div class="section-header">
+          <h3>All Transactions</h3>
+          <div class="filters">
+            <select id="filter-status">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+              <option value="paid_off">Paid Off</option>
+            </select>
+            <input type="date" id="filter-date-start">
+            <input type="date" id="filter-date-end">
+          </div>
+        </div>
+        <table class="data-table full">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Patient</th>
+              <th>Amount</th>
+              <th>Plan</th>
+              <th>Monthly</th>
+              <th>Balance</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="transactions-table-body">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Call Logs Section -->
+      <section id="section-calls" class="dashboard-section">
+        <div class="section-header">
+          <h3>Call Logs</h3>
+          <button class="btn-primary" id="btn-export-calls">Export</button>
+        </div>
+        <table class="data-table full">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Contact</th>
+              <th>Duration</th>
+              <th>Summary</th>
+              <th>Recording</th>
+            </tr>
+          </thead>
+          <tbody id="calls-table-body">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Meetings Section -->
+      <section id="section-meetings" class="dashboard-section">
+        <div class="section-header">
+          <h3>Video Meetings</h3>
+          <button class="btn-primary" id="btn-schedule-meeting">Schedule Meeting</button>
+        </div>
+        <div class="meetings-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- WebRTC Call Modal -->
+  <div id="call-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Video Call</h3>
+        <button class="btn-close" id="btn-close-call">×</button>
+      </div>
+      <div id="webrtc-container" class="webrtc-container">
+        <!-- WebRTC streams go here -->
+      </div>
+      <div class="call-controls">
+        <button class="btn-icon" id="btn-mute">🎤</button>
+        <button class="btn-icon" id="btn-video">📹</button>
+        <button class="btn-icon danger" id="btn-end-call">📞</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/shared/js/dashboard.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "verticals": {
+    "health": {
+      "name": "PayFlex.Health",
+      "enabled": true,
+      "cards": true,
+      "fundingSource": "patient/employer",
+      "tiers": ["starter", "growth", "scale"],
+      "defaultTier": "starter"
+    },
+    "law": {
+      "name": "PayFlex.Law",
+      "enabled": false,
+      "retainerships": true,
+      "cards": false,
+      "fundingSource": "client",
+      "tiers": ["law"],
+      "defaultTier": "law"
+    }
+  },
+  "pricing": {
+    "health": {
+      "starter": 499,
+      "growth": 1250,
+      "scale": 2500
+    },
+    "law": {
+      "law": 750
+    }
+  },
+  "platformFee": {
+    "min": 0.0075,
+    "default": 0.0125,
+    "max": 0.015
+  },
+  "riskThresholds": {
+    "freeze": 50,
+    "warning": 60,
+    "good": 70
+  }
+}

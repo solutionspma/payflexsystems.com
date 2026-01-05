@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Financing — PayFlex Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Form-specific styles */
+    .apply-page {
+      min-height: 100vh;
+      background: var(--color-charcoal);
+      padding-top: 80px;
+    }
+    
+    .apply-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .apply-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .apply-header h1 {
+      font-size: 2rem;
+      color: var(--color-white);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .apply-header p {
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .benefits-row {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+    }
+    
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-gold);
+    }
+    
+    .benefit svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-lg);
+      position: relative;
+    }
+    
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: var(--color-charcoal-light);
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-charcoal-light);
+      border: 2px solid var(--color-gray-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--color-gray-500);
+      transition: all 0.3s ease;
+    }
+    
+    .step.active .step-number {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: var(--color-black);
+    }
+    
+    .step.completed .step-number {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: var(--color-black);
+    }
+    
+    .step-label {
+      font-size: 0.75rem;
+      color: var(--color-gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .step.active .step-label {
+      color: var(--color-gold);
+    }
+    
+    /* Form Card */
+    .form-card {
+      background: var(--color-black);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: var(--spacing-lg);
+    }
+    
+    .form-step {
+      display: none;
+    }
+    
+    .form-step.active {
+      display: block;
+    }
+    
+    .form-step h2 {
+      font-size: 1.5rem;
+      color: var(--color-white);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-sm);
+    }
+    
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-gray-300);
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--color-white);
+      background: var(--color-charcoal);
+      border: 1px solid var(--color-gray-700);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.1);
+    }
+    
+    .form-group input::placeholder {
+      color: var(--color-gray-500);
+    }
+    
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 16px;
+      padding-right: 2.5rem;
+    }
+    
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--color-gray-500);
+      margin-top: 0.25rem;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-back {
+      background: transparent;
+      color: var(--color-gray-300);
+      border: 1px solid var(--color-gray-700);
+    }
+    
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--color-gray-500);
+    }
+    
+    /* Info Box */
+    .info-box {
+      background: rgba(201, 162, 77, 0.1);
+      border: 1px solid rgba(201, 162, 77, 0.3);
+      border-radius: 8px;
+      padding: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-sm);
+    }
+    
+    .info-box svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .info-box p {
+      font-size: 0.875rem;
+      color: var(--color-gray-300);
+      line-height: 1.5;
+    }
+    
+    .info-box strong {
+      color: var(--color-white);
+    }
+    
+    /* Amount Slider */
+    .amount-display {
+      text-align: center;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .amount-value {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--color-gold);
+    }
+    
+    .amount-range {
+      font-size: 0.875rem;
+      color: var(--color-gray-500);
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      background: var(--color-charcoal-light);
+      border-radius: 4px;
+      appearance: none;
+      cursor: pointer;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    /* Success State */
+    .success-message {
+      text-align: center;
+      padding: var(--spacing-lg);
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(201, 162, 77, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--spacing-md);
+    }
+    
+    .success-icon svg {
+      width: 40px;
+      height: 40px;
+      color: var(--color-gold);
+    }
+    
+    .success-message h2 {
+      color: var(--color-white);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .success-message p {
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-md);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/payflexlogowhite.png" alt="PayFlex Health" class="logo-img">
+        <span class="logo-text"><span class="logo-phar">PHAR</span><span class="logo-pay">PAY</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="how-it-works.html">How It Works</a>
+        <a href="about.html">About</a>
+        <a href="customer-apply.html" class="btn btn-nav">Apply Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="apply-page">
+    <div class="apply-container">
+      <div class="apply-header">
+        <h1>Apply for Financing</h1>
+        <p>Get care today. Pay over time with no surprises.</p>
+        <div class="benefits-row">
+          <span class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            0% APR options
+          </span>
+          <span class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            No hard credit pull
+          </span>
+          <span class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            2-minute application
+          </span>
+        </div>
+      </div>
+
+      <div class="progress-steps">
+        <div class="step active" data-step="1">
+          <span class="step-number">1</span>
+          <span class="step-label">Your Info</span>
+        </div>
+        <div class="step" data-step="2">
+          <span class="step-number">2</span>
+          <span class="step-label">Pre-Qualify</span>
+        </div>
+        <div class="step" data-step="3">
+          <span class="step-number">3</span>
+          <span class="step-label">Choose Plan</span>
+        </div>
+        <div class="step" data-step="4">
+          <span class="step-number">4</span>
+          <span class="step-label">Confirm</span>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <form id="application-form">
+          <!-- Step 1: Personal Information -->
+          <div class="form-step active" data-step="1">
+            <h2>Personal Information</h2>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Smith" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address">Street Address</label>
+                <input type="text" id="address" name="address" placeholder="123 Main St" required>
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="New York" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="state" required>
+                  <option value="">Select state</option>
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="CA">California</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="NY">New York</option>
+                  <option value="TX">Texas</option>
+                  <!-- Add more states -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" name="zip" placeholder="10001" required>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <span></span>
+              <button type="button" class="btn btn-primary" onclick="nextStep(2)">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Pre-Qualification -->
+          <div class="form-step" data-step="2">
+            <h2>Pre-Qualification</h2>
+            
+            <div class="info-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+              <p>This is a <strong>soft credit check</strong> and will <strong>NOT</strong> affect your credit score.</p>
+            </div>
+
+            <div class="form-group">
+              <label for="ssn_last4">Last 4 of SSN</label>
+              <input type="text" id="ssn_last4" name="ssn_last4" placeholder="1234" maxlength="4" required>
+              <p class="form-hint">Used only for identity verification</p>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="income">Annual Income</label>
+                <select id="income" name="income" required>
+                  <option value="">Select range</option>
+                  <option value="0-25000">Under $25,000</option>
+                  <option value="25000-50000">$25,000 - $50,000</option>
+                  <option value="50000-75000">$50,000 - $75,000</option>
+                  <option value="75000-100000">$75,000 - $100,000</option>
+                  <option value="100000+">Over $100,000</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="employment">Employment Status</label>
+                <select id="employment" name="employment" required>
+                  <option value="">Select status</option>
+                  <option value="employed">Employed Full-Time</option>
+                  <option value="part-time">Employed Part-Time</option>
+                  <option value="self-employed">Self-Employed</option>
+                  <option value="retired">Retired</option>
+                  <option value="student">Student</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="amount">Requested Amount</label>
+              <div class="amount-display">
+                <span class="amount-value" id="amount-display">$5,000</span>
+                <p class="amount-range">$100 - $25,000</p>
+              </div>
+              <input type="range" id="amount" name="amount" min="100" max="25000" step="100" value="5000" oninput="updateAmount(this.value)">
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-back" onclick="prevStep(1)">Back</button>
+              <button type="button" class="btn btn-primary" onclick="nextStep(3)">Check Eligibility</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Choose Plan -->
+          <div class="form-step" data-step="3">
+            <h2>Choose Your Plan</h2>
+            
+            <div class="info-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <p><strong>Congratulations!</strong> You're pre-approved. Select a payment plan below.</p>
+            </div>
+
+            <div class="plan-options">
+              <label class="plan-option">
+                <input type="radio" name="plan" value="6-months" checked>
+                <div class="plan-card">
+                  <span class="plan-term">6 Months</span>
+                  <span class="plan-rate">0% APR</span>
+                  <span class="plan-payment">$833/mo</span>
+                </div>
+              </label>
+              
+              <label class="plan-option">
+                <input type="radio" name="plan" value="12-months">
+                <div class="plan-card">
+                  <span class="plan-term">12 Months</span>
+                  <span class="plan-rate">5.9% APR</span>
+                  <span class="plan-payment">$430/mo</span>
+                </div>
+              </label>
+              
+              <label class="plan-option">
+                <input type="radio" name="plan" value="24-months">
+                <div class="plan-card">
+                  <span class="plan-term">24 Months</span>
+                  <span class="plan-rate">9.9% APR</span>
+                  <span class="plan-payment">$230/mo</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-back" onclick="prevStep(2)">Back</button>
+              <button type="button" class="btn btn-primary" onclick="nextStep(4)">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Confirm -->
+          <div class="form-step" data-step="4">
+            <h2>Confirm & Submit</h2>
+            
+            <div class="summary-box">
+              <h3>Application Summary</h3>
+              <div class="summary-row">
+                <span>Financing Amount</span>
+                <span id="summary-amount">$5,000</span>
+              </div>
+              <div class="summary-row">
+                <span>Payment Plan</span>
+                <span id="summary-plan">6 Months at 0% APR</span>
+              </div>
+              <div class="summary-row">
+                <span>Monthly Payment</span>
+                <span id="summary-payment">$833/mo</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="agree_terms" required>
+                <span>I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="agree_credit" required>
+                <span>I authorize PayFlex Health to perform a credit check to finalize my application</span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-back" onclick="prevStep(3)">Back</button>
+              <button type="submit" class="btn btn-primary">Submit Application</button>
+            </div>
+          </div>
+
+          <!-- Success State -->
+          <div class="form-step" data-step="5">
+            <div class="success-message">
+              <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <h2>Application Submitted!</h2>
+              <p>We're reviewing your application. You'll receive a decision via email within 24 hours.</p>
+              <a href="index.html" class="btn btn-primary">Return Home</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function nextStep(step) {
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+      
+      document.querySelectorAll('.progress-steps .step').forEach(el => {
+        const stepNum = parseInt(el.dataset.step);
+        el.classList.remove('active', 'completed');
+        if (stepNum < step) el.classList.add('completed');
+        if (stepNum === step) el.classList.add('active');
+      });
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function prevStep(step) {
+      nextStep(step);
+    }
+    
+    function updateAmount(value) {
+      document.getElementById('amount-display').textContent = '$' + parseInt(value).toLocaleString();
+    }
+    
+    document.getElementById('application-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      nextStep(5);
+    });
+  </script>
+
+  <style>
+    /* Plan Options */
+    .plan-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .plan-option input {
+      display: none;
+    }
+    
+    .plan-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md);
+      background: var(--color-charcoal);
+      border: 2px solid var(--color-gray-700);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .plan-option input:checked + .plan-card {
+      border-color: var(--color-gold);
+      background: rgba(201, 162, 77, 0.1);
+    }
+    
+    .plan-card:hover {
+      border-color: var(--color-gray-500);
+    }
+    
+    .plan-term {
+      font-weight: 600;
+      color: var(--color-white);
+    }
+    
+    .plan-rate {
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+    
+    .plan-payment {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-white);
+    }
+    
+    /* Summary Box */
+    .summary-box {
+      background: var(--color-charcoal);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .summary-box h3 {
+      font-size: 1rem;
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--spacing-xs) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+    
+    .summary-row span:first-child {
+      color: var(--color-gray-500);
+    }
+    
+    .summary-row span:last-child {
+      color: var(--color-white);
+      font-weight: 500;
+    }
+    
+    /* Checkbox */
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+      color: var(--color-gray-300);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--color-gold);
+    }
+    
+    .checkbox-label a {
+      color: var(--color-gold);
+      text-decoration: underline;
+    }
+  </style>
+</body>
+</html>

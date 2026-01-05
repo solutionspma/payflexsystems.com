@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provider Application — PayFlex Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Provider Application Form Styles */
+    :root {
+      --color-gold: #C9A24D;
+      --color-gold-light: #D4B366;
+      --color-charcoal: #1a1a1a;
+      --color-black: #0a0a0a;
+      --color-white: #ffffff;
+      --color-gray-300: #d1d5db;
+      --color-gray-500: #6b7280;
+      --color-gray-700: #374151;
+      --color-gray-800: #1f2937;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --transition: all 0.3s ease;
+    }
+    
+    .apply-page {
+      min-height: 100vh;
+      background: var(--color-charcoal);
+      padding-top: 80px;
+    }
+    
+    .apply-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .apply-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .apply-header h1 {
+      font-family: var(--font-serif);
+      font-size: 2.25rem;
+      color: var(--color-white);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .apply-header p {
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .benefits-row {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+    }
+    
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-gray-300);
+    }
+    
+    .benefit svg {
+      width: 16px;
+      height: 16px;
+      color: var(--color-gold);
+    }
+    
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--color-gray-500);
+      position: relative;
+    }
+    
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2rem;
+      height: 1px;
+      background: var(--color-gray-700);
+    }
+    
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-gray-800);
+      border: 1px solid var(--color-gray-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .step.active .step-number {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: var(--color-black);
+    }
+    
+    .step.active {
+      color: var(--color-white);
+    }
+    
+    .step.completed .step-number {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: var(--color-black);
+    }
+    
+    .step.completed::after {
+      background: var(--color-gold);
+    }
+    
+    .step-label {
+      display: none;
+    }
+    
+    @media (min-width: 640px) {
+      .step-label {
+        display: inline;
+      }
+    }
+    
+    /* Form Card */
+    .form-card {
+      background: var(--color-black);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: var(--spacing-lg);
+    }
+    
+    .form-step {
+      display: none;
+    }
+    
+    .form-step.active {
+      display: block;
+    }
+    
+    .form-step h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-white);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .form-description {
+      color: var(--color-gray-500);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-gray-300);
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      font-family: var(--font-sans);
+      background: var(--color-charcoal);
+      border: 1px solid var(--color-gray-700);
+      border-radius: 8px;
+      color: var(--color-white);
+      transition: var(--transition);
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.1);
+    }
+    
+    .form-group input::placeholder {
+      color: var(--color-gray-500);
+    }
+    
+    .form-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Checkbox Grid */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    @media (min-width: 640px) {
+      .checkbox-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: var(--color-charcoal);
+      border: 1px solid var(--color-gray-700);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.875rem;
+      color: var(--color-gray-300);
+    }
+    
+    .checkbox-item:hover {
+      border-color: var(--color-gray-500);
+    }
+    
+    .checkbox-item input {
+      width: auto;
+      accent-color: var(--color-gold);
+    }
+    
+    .checkbox-item input:checked + span {
+      color: var(--color-white);
+    }
+    
+    /* Info Box */
+    .info-box {
+      background: rgba(201, 162, 77, 0.1);
+      border: 1px solid rgba(201, 162, 77, 0.3);
+      border-radius: 8px;
+      padding: var(--spacing-sm);
+      margin: var(--spacing-md) 0;
+    }
+    
+    .info-box p {
+      color: var(--color-gray-300);
+      font-size: 0.875rem;
+      margin: 0;
+    }
+    
+    .info-box p:first-child {
+      color: var(--color-gold);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    /* Review Summary */
+    .review-summary {
+      background: var(--color-charcoal);
+      border-radius: 8px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .review-section {
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid var(--color-gray-700);
+    }
+    
+    .review-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .review-section h4 {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .review-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+    
+    .review-label {
+      color: var(--color-gray-500);
+    }
+    
+    .review-value {
+      color: var(--color-white);
+      text-align: right;
+    }
+    
+    /* Form Actions */
+    .form-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid var(--color-gray-700);
+    }
+    
+    .btn-prev {
+      flex: 1;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      background: transparent;
+      border: 1px solid var(--color-gray-700);
+      border-radius: 8px;
+      color: var(--color-gray-300);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn-prev:hover {
+      border-color: var(--color-gray-500);
+      color: var(--color-white);
+    }
+    
+    .btn-next,
+    .btn-submit {
+      flex: 2;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background: var(--color-gold);
+      border: none;
+      border-radius: 8px;
+      color: var(--color-black);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn-next:hover,
+    .btn-submit:hover {
+      background: var(--color-gold-light);
+      transform: translateY(-2px);
+    }
+    
+    /* Terms checkbox */
+    .terms-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: var(--spacing-sm);
+      background: var(--color-charcoal);
+      border-radius: 8px;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .terms-checkbox input {
+      width: auto;
+      margin-top: 0.25rem;
+      accent-color: var(--color-gold);
+    }
+    
+    .terms-checkbox span {
+      font-size: 0.875rem;
+      color: var(--color-gray-300);
+      line-height: 1.5;
+    }
+    
+    .terms-checkbox a {
+      color: var(--color-gold);
+      text-decoration: underline;
+    }
+    
+    /* Success Message */
+    .success-message {
+      text-align: center;
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .success-message.hidden {
+      display: none;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--spacing-md);
+      background: var(--color-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--color-black);
+    }
+    
+    .success-message h2 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--color-white);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .success-message p {
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .success-message .btn-primary {
+      display: inline-block;
+      margin-top: var(--spacing-md);
+      padding: 1rem 2rem;
+      background: var(--color-gold);
+      color: var(--color-black);
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    
+    /* Footer Simple */
+    .footer-simple {
+      text-align: center;
+      padding: var(--spacing-lg) var(--spacing-md);
+      color: var(--color-gray-500);
+      font-size: 0.875rem;
+    }
+    
+    .footer-simple a {
+      color: var(--color-gold);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/payflexlogowhite.png" alt="PayFlex Health" class="logo-img">
+        <span class="logo-text"><span class="logo-phar">PHAR</span><span class="logo-pay">PAY</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="how-it-works.html">How It Works</a>
+        <a href="for-providers.html">For Providers</a>
+        <a href="about.html">About</a>
+        <a href="customer-apply.html" class="btn btn-nav">Patient Apply</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="apply-page">
+    <div class="apply-container">
+      <div class="apply-header">
+        <h1>Provider Application</h1>
+        <p>Join the PayFlex Health network. Get paid faster. Serve more patients.</p>
+        <div class="benefits-row">
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>2-3 Day Funding</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>No Setup Fees</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Easy Integration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step active" data-step="1">
+          <span class="step-number">1</span>
+          <span class="step-label">Practice</span>
+        </div>
+        <div class="step" data-step="2">
+          <span class="step-number">2</span>
+          <span class="step-label">Services</span>
+        </div>
+        <div class="step" data-step="3">
+          <span class="step-number">3</span>
+          <span class="step-label">Banking</span>
+        </div>
+        <div class="step" data-step="4">
+          <span class="step-number">4</span>
+          <span class="step-label">Review</span>
+        </div>
+      </div>
+
+      <!-- Application Form -->
+      <div class="form-card">
+        <form id="provider-application">
+          <!-- Step 1: Practice Information -->
+          <div class="form-step active" data-step="1">
+            <h3>Practice Information</h3>
+            <p class="form-description">Tell us about your practice so we can customize your experience.</p>
+
+            <div class="form-group">
+              <label for="practice_name">Practice Name *</label>
+              <input type="text" id="practice_name" name="practice_name" required placeholder="e.g., Smile Dental Care">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="practice_type">Practice Type *</label>
+                <select id="practice_type" name="practice_type" required>
+                  <option value="">Select type...</option>
+                  <option value="dental">Dental</option>
+                  <option value="medical">Medical</option>
+                  <option value="veterinary">Veterinary</option>
+                  <option value="vision">Vision / Optical</option>
+                  <option value="cosmetic">Cosmetic / Aesthetic</option>
+                  <option value="mental_health">Mental Health</option>
+                  <option value="physical_therapy">Physical Therapy</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="avg_ticket">Average Ticket Size *</label>
+                <select id="avg_ticket" name="avg_ticket" required>
+                  <option value="">Select range...</option>
+                  <option value="under_500">Under $500</option>
+                  <option value="500_1000">$500 - $1,000</option>
+                  <option value="1000_2500">$1,000 - $2,500</option>
+                  <option value="2500_5000">$2,500 - $5,000</option>
+                  <option value="5000_10000">$5,000 - $10,000</option>
+                  <option value="over_10000">Over $10,000</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address_line1">Street Address *</label>
+              <input type="text" id="address_line1" name="address_line1" required placeholder="123 Main Street">
+            </div>
+
+            <div class="form-group">
+              <label for="address_line2">Suite / Unit</label>
+              <input type="text" id="address_line2" name="address_line2" placeholder="Suite 100">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required>
+              </div>
+              <div class="form-group">
+                <label for="state">State *</label>
+                <input type="text" id="state" name="state" maxlength="2" required placeholder="GA">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="zip">ZIP Code *</label>
+                <input type="text" id="zip" name="zip" maxlength="10" required placeholder="30301">
+              </div>
+              <div class="form-group">
+                <label for="phone">Practice Phone *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="(404) 555-1234">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Practice Email *</label>
+                <input type="email" id="email" name="email" required placeholder="office@example.com">
+              </div>
+              <div class="form-group">
+                <label for="website">Website</label>
+                <input type="url" id="website" name="website" placeholder="https://yourpractice.com">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-next" onclick="nextStep(1)">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Services -->
+          <div class="form-step" data-step="2">
+            <h3>Services Offered</h3>
+            <p class="form-description">Select all services your practice offers that you'd like to finance through PayFlex Health.</p>
+
+            <div class="checkbox-grid">
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="general_care">
+                <span>General Care</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="preventive">
+                <span>Preventive</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="restorative">
+                <span>Restorative</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="cosmetic">
+                <span>Cosmetic</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="surgical">
+                <span>Surgical</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="emergency">
+                <span>Emergency</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="specialty">
+                <span>Specialty</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="services" value="other">
+                <span>Other</span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label for="monthly_volume">Estimated Monthly Financing Volume *</label>
+              <select id="monthly_volume" name="monthly_volume" required>
+                <option value="">Select range...</option>
+                <option value="under_10k">Under $10,000</option>
+                <option value="10k_25k">$10,000 - $25,000</option>
+                <option value="25k_50k">$25,000 - $50,000</option>
+                <option value="50k_100k">$50,000 - $100,000</option>
+                <option value="over_100k">Over $100,000</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="current_financing">Current Financing Provider (if any)</label>
+              <input type="text" id="current_financing" name="current_financing" placeholder="CareCredit, Lending Club, etc.">
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-prev" onclick="prevStep(2)">Back</button>
+              <button type="button" class="btn-next" onclick="nextStep(2)">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Banking -->
+          <div class="form-step" data-step="3">
+            <h3>Banking Information</h3>
+            <p class="form-description">Where should we deposit your funds? This is required for provider payouts.</p>
+
+            <div class="form-group">
+              <label for="tax_id">Tax ID / EIN *</label>
+              <input type="text" id="tax_id" name="tax_id" required placeholder="XX-XXXXXXX">
+            </div>
+
+            <div class="form-group">
+              <label for="bank_name">Bank Name *</label>
+              <input type="text" id="bank_name" name="bank_name" required placeholder="Chase, Bank of America, etc.">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="routing_number">Routing Number *</label>
+                <input type="text" id="routing_number" name="routing_number" maxlength="9" required placeholder="9 digits">
+              </div>
+              <div class="form-group">
+                <label for="account_number">Account Number *</label>
+                <input type="text" id="account_number" name="account_number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="account_type">Account Type *</label>
+              <select id="account_type" name="account_type" required>
+                <option value="">Select type...</option>
+                <option value="checking">Checking</option>
+                <option value="savings">Savings</option>
+              </select>
+            </div>
+
+            <div class="info-box">
+              <p>🔒 Secure & Encrypted</p>
+              <p>Your banking information is encrypted using bank-level security. We never store full account numbers.</p>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-prev" onclick="prevStep(3)">Back</button>
+              <button type="button" class="btn-next" onclick="nextStep(3)">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Review -->
+          <div class="form-step" data-step="4">
+            <h3>Review & Submit</h3>
+            <p class="form-description">Please review your information before submitting.</p>
+
+            <div class="review-summary" id="review-summary">
+              <div class="review-section">
+                <h4>Practice Information</h4>
+                <div class="review-row">
+                  <span class="review-label">Practice Name</span>
+                  <span class="review-value" id="review-practice-name">—</span>
+                </div>
+                <div class="review-row">
+                  <span class="review-label">Practice Type</span>
+                  <span class="review-value" id="review-practice-type">—</span>
+                </div>
+                <div class="review-row">
+                  <span class="review-label">Location</span>
+                  <span class="review-value" id="review-location">—</span>
+                </div>
+              </div>
+              <div class="review-section">
+                <h4>Services & Volume</h4>
+                <div class="review-row">
+                  <span class="review-label">Monthly Volume</span>
+                  <span class="review-value" id="review-volume">—</span>
+                </div>
+                <div class="review-row">
+                  <span class="review-label">Avg Ticket Size</span>
+                  <span class="review-value" id="review-ticket">—</span>
+                </div>
+              </div>
+              <div class="review-section">
+                <h4>Banking</h4>
+                <div class="review-row">
+                  <span class="review-label">Bank</span>
+                  <span class="review-value" id="review-bank">—</span>
+                </div>
+                <div class="review-row">
+                  <span class="review-label">Account</span>
+                  <span class="review-value" id="review-account">—</span>
+                </div>
+              </div>
+            </div>
+
+            <label class="terms-checkbox">
+              <input type="checkbox" id="agree_terms" name="agree_terms" required>
+              <span>I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></span>
+            </label>
+
+            <label class="terms-checkbox">
+              <input type="checkbox" id="agree_fees" name="agree_fees" required>
+              <span>I understand the transaction fee structure (2-4% based on volume) and that I'll receive full treatment amounts minus fees within 2-3 business days.</span>
+            </label>
+
+            <div class="form-actions">
+              <button type="button" class="btn-prev" onclick="prevStep(4)">Back</button>
+              <button type="submit" class="btn-submit">Submit Application</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="success-message" class="success-message hidden">
+          <div class="success-icon">✓</div>
+          <h2>Application Submitted!</h2>
+          <p>Thank you for applying to join the PayFlex Health network.</p>
+          <p>Our team will review your application within 1-2 business days. You'll receive an email with next steps.</p>
+          <a href="index.html" class="btn-primary">Return Home</a>
+        </div>
+      </div>
+
+      <div class="footer-simple">
+        <p>Questions? Call <a href="tel:+18665801003">+1 866 580 1003</a> or email <a href="mailto:providers@pharpay.com">providers@pharpay.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form step navigation
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function showStep(step) {
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.step').forEach(el => {
+        el.classList.remove('active', 'completed');
+        const stepNum = parseInt(el.dataset.step);
+        if (stepNum < step) el.classList.add('completed');
+        if (stepNum === step) el.classList.add('active');
+      });
+      document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+      
+      if (step === 4) {
+        updateReviewSummary();
+      }
+    }
+
+    function nextStep(from) {
+      if (from < totalSteps) {
+        currentStep = from + 1;
+        showStep(currentStep);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevStep(from) {
+      if (from > 1) {
+        currentStep = from - 1;
+        showStep(currentStep);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateReviewSummary() {
+      const form = document.getElementById('provider-application');
+      document.getElementById('review-practice-name').textContent = form.practice_name.value || '—';
+      document.getElementById('review-practice-type').textContent = form.practice_type.options[form.practice_type.selectedIndex]?.text || '—';
+      document.getElementById('review-location').textContent = form.city.value && form.state.value ? `${form.city.value}, ${form.state.value}` : '—';
+      document.getElementById('review-volume').textContent = form.monthly_volume.options[form.monthly_volume.selectedIndex]?.text || '—';
+      document.getElementById('review-ticket').textContent = form.avg_ticket.options[form.avg_ticket.selectedIndex]?.text || '—';
+      document.getElementById('review-bank').textContent = form.bank_name.value || '—';
+      document.getElementById('review-account').textContent = form.account_number.value ? '••••' + form.account_number.value.slice(-4) : '—';
+    }
+
+    // Form submission
+    document.getElementById('provider-application').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulate submission
+      document.querySelector('.form-card form').style.display = 'none';
+      document.getElementById('success-message').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
