@@ -1,0 +1,23 @@
+[build]
+  publish = "apps/payflex-systems"
+  command = "echo 'Static site - no build required'"
+
+[[redirects]]
+  from = "/health/*"
+  to = "/apps/payflex-health/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/law/*"
+  to = "/apps/payflex-law/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/apps/payflex-systems/admin/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/onboarding/*"
+  to = "/apps/payflex-health/onboarding/:splat"
+  status = 200
