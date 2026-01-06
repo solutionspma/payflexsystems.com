@@ -217,7 +217,7 @@ img {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 37, 64, 0.75);
+  background: rgba(10, 37, 64, 0.85);
 }
 
 .hero-content {
@@ -226,9 +226,6 @@ img {
   max-width: 900px;
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-md);
-  background: rgba(10, 37, 64, 0.4);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
 }
 
 .hero-eyebrow {
@@ -239,7 +236,7 @@ img {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: var(--spacing-md);
-  text-shadow: 0 0 20px rgba(201, 162, 39, 0.6);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .hero-title {
@@ -249,14 +246,16 @@ img {
   color: var(--color-white);
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 }
 
 .hero-description {
   font-size: 1.125rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.95);
   max-width: 650px;
   margin: 0 auto var(--spacing-lg);
   line-height: 1.8;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .hero-cta {
