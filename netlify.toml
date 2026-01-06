@@ -32,3 +32,8 @@
   from = "/partner"
   to = "/apps/payflex-systems/partner.html"
   status = 200
+
+[[redirects]]
+  from = "/providers/*"
+  to = "/apps/payflex-systems/providers/:splat"
+  status = 200
