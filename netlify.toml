@@ -1,6 +1,12 @@
 [build]
-  publish = "apps/payflex-systems"
+  publish = "."
   command = "echo 'Static site - no build required'"
+
+[[redirects]]
+  from = "/"
+  to = "/apps/payflex-systems/index.html"
+  status = 200
+  force = false
 
 [[redirects]]
   from = "/health/*"
