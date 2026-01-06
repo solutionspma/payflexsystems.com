@@ -27,3 +27,8 @@
   from = "/onboarding/*"
   to = "/apps/payflex-health/onboarding/:splat"
   status = 200
+
+[[redirects]]
+  from = "/partner"
+  to = "/apps/payflex-systems/partner.html"
+  status = 200
