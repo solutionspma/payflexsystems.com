@@ -2,24 +2,19 @@
 /* Medical-grade unified color system */
 
 :root {
-  /* Minimal Grayscale System */
-  --bg-white: #ffffff;
-  --bg-light: #f9f9f9;
-  --bg-gray: #e5e5e5;
-  --text-dark: #1a1a1a;
-  --text-medium: #4a4a4a;
+  /* PayFlex Systems - Authority/Finance/Trust */
+  --pfs-navy: #0a2540;
+  --pfs-slate: #334155;
+  --pfs-gold: #c9a227;
+  --pfs-white: #ffffff;
+  --pfs-muted: #e5e7eb;
   
-  /* Legacy mappings for compatibility */
-  --color-ivory: #ffffff;
-  --color-gold: #1a1a1a;
-  --color-gold-light: #4a4a4a;
-  --color-gold-dark: #000000;
-  --color-charcoal: #1a1a1a;
-  --color-charcoal-light: #333333;
-  --color-navy: #1a1a1a;
-  --color-white: #ffffff;
-  --color-cream: #f9f9f9;
-  --color-warm-gray: #6a6a6a;
+  /* Semantic mappings */
+  --color-primary: var(--pfs-navy);
+  --color-accent: var(--pfs-gold);
+  --color-background: var(--pfs-white);
+  --color-surface: var(--pfs-muted);
+  --color-text: var(--pfs-navy);
   
   /* Text Colors */
   --color-text-dark: #0F172A;
