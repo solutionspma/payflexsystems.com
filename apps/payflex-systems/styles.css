@@ -217,7 +217,7 @@ img {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 37, 64, 0.6);
+  background: rgba(10, 37, 64, 0.75);
 }
 
 .hero-content {
@@ -226,6 +226,9 @@ img {
   max-width: 900px;
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-md);
+  background: rgba(10, 37, 64, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
 }
 
 .hero-eyebrow {
