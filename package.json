@@ -1,32 +1,18 @@
 {
   "name": "payflex-systems",
   "version": "1.0.0",
-  "description": "PayFlex Systems - Payment infrastructure for vertical markets",
+  "description": "PayFlex Systems - Payment Access Infrastructure",
   "type": "module",
   "scripts": {
-    "seed:godmode": "node scripts/seed-godmode.js",
-    "start": "node server/index.js",
-    "dev": "node --watch server/index.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "stripe": "^14.0.0",
-    "bcrypt": "^5.1.1",
-    "speakeasy": "^2.0.0",
-    "qrcode": "^1.5.3"
+    "@supabase/supabase-js": "^2.39.0",
+    "jspdf": "^2.5.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "keywords": [
-    "payments",
-    "healthcare",
-    "legal",
-    "fintech",
-    "infrastructure"
-  ],
-  "author": "PayFlex Systems (pitchmarketing.agency)",
-  "license": "PROPRIETARY"
+    "vite": "^5.0.0"
+  }
 }
