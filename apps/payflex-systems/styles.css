@@ -2,24 +2,24 @@
 /* Medical-grade unified color system */
 
 :root {
-  /* Medical-Grade Color System */
-  --medical-blue: #0B5ED7;
-  --navy-dark: #0A2540;
-  --gold-accent: #D4AF37;
-  --bg-light: #F8FAFC;
-  --text-dark: #0F172A;
+  /* Minimal Grayscale System */
+  --bg-white: #ffffff;
+  --bg-light: #f9f9f9;
+  --bg-gray: #e5e5e5;
+  --text-dark: #1a1a1a;
+  --text-medium: #4a4a4a;
   
   /* Legacy mappings for compatibility */
-  --color-ivory: #F8FAFC;
-  --color-gold: #D4AF37;
-  --color-gold-light: #E0C45C;
-  --color-gold-dark: #B8962F;
-  --color-charcoal: #0A2540;
-  --color-charcoal-light: #0F3156;
-  --color-navy: #0A2540;
+  --color-ivory: #ffffff;
+  --color-gold: #1a1a1a;
+  --color-gold-light: #4a4a4a;
+  --color-gold-dark: #000000;
+  --color-charcoal: #1a1a1a;
+  --color-charcoal-light: #333333;
+  --color-navy: #1a1a1a;
   --color-white: #ffffff;
-  --color-cream: #F8FAFC;
-  --color-warm-gray: #6B7B8C;
+  --color-cream: #f9f9f9;
+  --color-warm-gray: #6a6a6a;
   
   /* Text Colors */
   --color-text-dark: #0F172A;

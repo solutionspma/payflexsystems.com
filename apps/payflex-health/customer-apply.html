@@ -389,6 +389,46 @@
           <div class="form-step active" data-step="1">
             <h2>Personal Information</h2>
             
+            <!-- Account Type Selection -->
+            <div class="form-group">
+              <label>I am a:</label>
+              <div style="display: flex; gap: 20px; margin-top: 10px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input type="radio" name="account_type" value="consumer" checked onchange="toggleBusinessFields()">
+                  <span>Consumer / Patient</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input type="radio" name="account_type" value="provider" onchange="toggleBusinessFields()">
+                  <span>Healthcare Provider</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Business Information (Provider Only) -->
+            <div id="business-fields" style="display: none;">
+              <div class="form-group">
+                <label for="business_name">Business/Practice Name</label>
+                <input type="text" id="business_name" name="business_name" placeholder="Medical Associates LLC">
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="business_type">Business Type</label>
+                  <select id="business_type" name="business_type">
+                    <option value="">Select type</option>
+                    <option value="sole_proprietor">Sole Proprietor</option>
+                    <option value="llc">LLC</option>
+                    <option value="corporation">Corporation</option>
+                    <option value="partnership">Partnership</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="tax_id">Tax ID / EIN</label>
+                  <input type="text" id="tax_id" name="tax_id" placeholder="12-3456789">
+                </div>
+              </div>
+            </div>
+            
             <div class="form-row">
               <div class="form-group">
                 <label for="first_name">First Name</label>
@@ -620,6 +660,25 @@
   </div>
 
   <script>
+    function toggleBusinessFields() {
+      const accountType = document.querySelector('input[name="account_type"]:checked').value;
+      const businessFields = document.getElementById('business-fields');
+      
+      if (accountType === 'provider') {
+        businessFields.style.display = 'block';
+        // Make business fields required
+        document.getElementById('business_name').required = true;
+        document.getElementById('business_type').required = true;
+        document.getElementById('tax_id').required = true;
+      } else {
+        businessFields.style.display = 'none';
+        // Make business fields optional
+        document.getElementById('business_name').required = false;
+        document.getElementById('business_type').required = false;
+        document.getElementById('tax_id').required = false;
+      }
+    }
+    
     function nextStep(step) {
       document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
       document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
