@@ -224,6 +224,7 @@ img {
   position: relative;
   z-index: 10;
   max-width: 900px;
+  margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-md);
 }
 
@@ -434,6 +435,8 @@ img {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .product-card {
