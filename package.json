@@ -1,7 +1,7 @@
 {
   "name": "payflex-systems",
   "version": "1.0.0",
-  "description": "PayFlex Systems - Payment Access Infrastructure",
+  "description": "PayFlex Systems - Payment orchestration platform for healthcare affordability (non-lender)",
   "type": "module",
   "scripts": {
     "dev": "vite",

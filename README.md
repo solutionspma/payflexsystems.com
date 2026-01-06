@@ -1,10 +1,10 @@
 # PayFlex Systems
 
-**Payment infrastructure for vertical markets.**
+**Payment orchestration platform for healthcare affordability.**
 
 ## Overview
 
-PayFlex Systems builds payment infrastructure for industries where affordability, cash flow, and compliance matter. We design and operate vertical-specific payment platforms that allow businesses to launch funded programs without carrying financial risk.
+PayFlex Systems is a payment orchestration platform focused on healthcare affordability. We do not originate loans, underwrite credit, or operate as an institutional lender. We design and operate vertical-specific payment platforms that allow businesses to launch funded programs without carrying financial risk.
 
 ## Verticals
 
