@@ -21,8 +21,8 @@
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f9f9f9;
-      color: #1a1a1a;
+      background: #f8f9fa;
+      color: #0a2540;
       line-height: 1.6;
     }
     
@@ -35,21 +35,22 @@
     .header {
       text-align: center;
       margin-bottom: 48px;
-      background: #ffffff;
-      padding: 32px;
+      background: #0a2540;
+      padding: 40px 32px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 12px rgba(10, 37, 64, 0.15);
     }
     
     .header h1 {
       font-size: 32px;
       font-weight: 700;
       margin-bottom: 12px;
+      color: #ffffff;
     }
     
     .header p {
       font-size: 16px;
-      color: #6a6a6a;
+      color: rgba(255, 255, 255, 0.85);
     }
     
     .progress-bar {
@@ -95,9 +96,9 @@
     }
     
     .progress-step.active .step-circle {
-      background: #1a1a1a;
-      border-color: #1a1a1a;
-      color: #ffffff;
+      background: #c9a227;
+      border-color: #c9a227;
+      color: #0a2540;
     }
     
     .progress-step.completed .step-circle {
@@ -129,6 +130,9 @@
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 8px;
+      color: #0a2540;
+      padding-left: 16px;
+      border-left: 4px solid #c9a227;
     }
     
     .section-description {
@@ -157,7 +161,7 @@
     label {
       font-size: 14px;
       font-weight: 500;
-      color: #1a1a1a;
+      color: #0a2540;
     }
     
     label .required {
@@ -175,8 +179,8 @@
     
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: #1a1a1a;
-      box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
     }
     
     textarea {
@@ -199,8 +203,8 @@
     }
     
     .file-upload:hover {
-      border-color: #1a1a1a;
-      background: #f9f9f9;
+      border-color: #c9a227;
+      background: #f8f9fa;
     }
     
     .file-upload input[type="file"] {
@@ -245,7 +249,7 @@
     }
     
     .add-owner {
-      background: #1a1a1a;
+      background: #0a2540;
       color: #ffffff;
       border: none;
       padding: 10px 20px;
@@ -318,22 +322,22 @@
     }
     
     .btn-primary {
-      background: #1a1a1a;
-      color: #ffffff;
+      background: #c9a227;
+      color: #0a2540;
     }
     
     .btn-primary:hover {
-      background: #000000;
+      background: #b89320;
     }
     
     .btn-secondary {
       background: #ffffff;
-      color: #1a1a1a;
-      border: 1px solid #e5e5e5;
+      color: #0a2540;
+      border: 2px solid #0a2540;
     }
     
     .btn-secondary:hover {
-      background: #f9f9f9;
+      background: #f8f9fa;
     }
     
     @media (max-width: 768px) {
@@ -487,12 +491,11 @@
         
         <div class="form-row">
           <div class="form-group">
-            <label>Secretary of State Registration Number <span class="required">*</span></label>
-            <input type="text" name="sos_number" required>
-          </div>
-          <div class="form-group">
             <label>Business Website <span class="required">*</span></label>
             <input type="url" name="website" required placeholder="https://">
+          </div>
+          <div class="form-group">
+            <!-- Removed Secretary of State field -->
           </div>
         </div>
         
