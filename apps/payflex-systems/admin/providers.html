@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — PayFlex Systems</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--pfs-gold);
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #6b7280;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab.active {
+      color: var(--pfs-navy);
+      border-bottom-color: var(--pfs-gold);
+    }
+
+    .tab:hover {
+      color: var(--pfs-navy);
+    }
+
+    .providers-table {
+      width: 100%;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .providers-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .providers-table th {
+      background: var(--pfs-navy);
+      color: white;
+      padding: 16px;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .providers-table td {
+      padding: 16px;
+      border-top: 1px solid #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+
+    .providers-table tr {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .providers-table tr:hover {
+      background: #f9fafb;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-approved {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .status-rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .status-under-review {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .check-icon {
+      color: #10b981;
+      font-weight: bold;
+    }
+
+    .provider-detail {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .detail-section {
+      margin-bottom: 32px;
+    }
+
+    .detail-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--pfs-navy);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .detail-value {
+      font-size: 15px;
+      color: var(--pfs-navy);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-approve {
+      background: #10b981;
+      color: white;
+    }
+
+    .btn-approve:hover {
+      background: #059669;
+    }
+
+    .btn-reject {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-reject:hover {
+      background: #dc2626;
+    }
+
+    .btn-outline {
+      background: white;
+      color: var(--pfs-navy);
+      border: 1.5px solid var(--pfs-navy);
+    }
+
+    .btn-outline:hover {
+      background: var(--pfs-navy);
+      color: white;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: #6b7280;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px;
+      color: #6b7280;
+    }
+
+    #providerDetailView {
+      display: none;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pfs-navy);
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .back-button:hover {
+      color: var(--pfs-gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <div>
+        <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--pfs-navy); margin: 0;">Admin Dashboard</h1>
+        <p style="font-family: 'Inter', sans-serif; color: #6b7280; margin: 8px 0 0 0;">PayFlex Systems Provider Management</p>
+      </div>
+      <div id="adminInfo" style="text-align: right; font-family: 'Inter', sans-serif; font-size: 14px; color: #6b7280;"></div>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="tab active" data-tab="providers">Providers</button>
+      <button class="tab" data-tab="tenants">Tenants</button>
+      <button class="tab" data-tab="referrals">Referrals</button>
+      <button class="tab" data-tab="audit">Audit Logs</button>
+    </div>
+
+    <!-- Providers List View -->
+    <div id="providersListView">
+      <div id="providersLoading" class="loading">
+        <p>Loading providers...</p>
+      </div>
+      
+      <div id="providersTable" style="display: none;">
+        <div class="providers-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Legal Business Name</th>
+                <th>Practice Type</th>
+                <th>State</th>
+                <th>Status</th>
+                <th>Agreement</th>
+                <th>Created Date</th>
+              </tr>
+            </thead>
+            <tbody id="providersTableBody">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="providersEmpty" class="empty-state" style="display: none;">
+        <p>No providers found</p>
+      </div>
+    </div>
+
+    <!-- Provider Detail View -->
+    <div id="providerDetailView">
+      <div class="back-button" onclick="showProvidersList()">
+        ← Back to Providers
+      </div>
+
+      <div class="provider-detail">
+        <div class="detail-section">
+          <h3>Entity Information</h3>
+          <div class="detail-grid" id="entityInfo">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>Owners & Control</h3>
+          <div id="ownersInfo">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>Documents</h3>
+          <div id="documentsInfo">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>Agreement</h3>
+          <div id="agreementInfo">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3>Admin Actions</h3>
+          <div id="reviewNotes" style="margin-bottom: 16px;">
+            <label class="detail-label">Review Notes</label>
+            <textarea id="notesInput" rows="4" style="width: 100%; padding: 12px; border: 1.5px solid #d1d5db; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px; margin-top: 8px;"></textarea>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-approve" onclick="approveProvider()">✅ Approve Provider</button>
+            <button class="btn btn-reject" onclick="rejectProvider()">❌ Reject Provider</button>
+            <button class="btn btn-outline" onclick="sendMessage()">📨 Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // TODO: Import Supabase client
+    // import { createClient } from '@supabase/supabase-js'
+    
+    let currentProvider = null;
+
+    // Initialize
+    async function init() {
+      // Check admin role
+      // Load providers
+      loadProviders();
+    }
+
+    async function loadProviders() {
+      try {
+        // TODO: Fetch from admin_provider_review view
+        // const { data, error } = await supabase
+        //   .from('admin_provider_review')
+        //   .select('*')
+        //   .order('created_at', { ascending: false });
+
+        // Mock data for now
+        const mockData = [
+          {
+            id: '1',
+            legal_business_name: 'Dr. LauraLee Parris Cardiology',
+            practice_type: 'Cardiology',
+            physical_state: 'GA',
+            review_status: 'pending_review',
+            created_at: '2026-01-05T12:00:00Z',
+            agreement_signed: true,
+            owner_count: 1,
+            verified_docs_count: 2
+          }
+        ];
+
+        displayProviders(mockData);
+      } catch (err) {
+        console.error('Error loading providers:', err);
+      }
+    }
+
+    function displayProviders(providers) {
+      const tbody = document.getElementById('providersTableBody');
+      tbody.innerHTML = '';
+
+      if (providers.length === 0) {
+        document.getElementById('providersLoading').style.display = 'none';
+        document.getElementById('providersEmpty').style.display = 'block';
+        return;
+      }
+
+      providers.forEach(provider => {
+        const row = document.createElement('tr');
+        row.onclick = () => showProviderDetail(provider);
+        
+        row.innerHTML = `
+          <td><strong>${provider.legal_business_name}</strong></td>
+          <td>${provider.practice_type || 'N/A'}</td>
+          <td>${provider.physical_state}</td>
+          <td><span class="status-badge status-${provider.review_status.replace('_', '-')}">${provider.review_status.replace('_', ' ')}</span></td>
+          <td>${provider.agreement_signed ? '<span class="check-icon">✔</span>' : '—'}</td>
+          <td>${new Date(provider.created_at).toLocaleDateString()}</td>
+        `;
+        
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('providersLoading').style.display = 'none';
+      document.getElementById('providersTable').style.display = 'block';
+    }
+
+    function showProviderDetail(provider) {
+      currentProvider = provider;
+      document.getElementById('providersListView').style.display = 'none';
+      document.getElementById('providerDetailView').style.display = 'block';
+      
+      // Populate entity info
+      const entityInfo = document.getElementById('entityInfo');
+      entityInfo.innerHTML = `
+        <div class="detail-item">
+          <span class="detail-label">Legal Business Name</span>
+          <span class="detail-value">${provider.legal_business_name}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Practice Type</span>
+          <span class="detail-value">${provider.practice_type || 'N/A'}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">State</span>
+          <span class="detail-value">${provider.physical_state}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Status</span>
+          <span class="detail-value"><span class="status-badge status-${provider.review_status.replace('_', '-')}">${provider.review_status.replace('_', ' ')}</span></span>
+        </div>
+      `;
+    }
+
+    function showProvidersList() {
+      document.getElementById('providerDetailView').style.display = 'none';
+      document.getElementById('providersListView').style.display = 'block';
+      currentProvider = null;
+    }
+
+    async function approveProvider() {
+      if (!currentProvider) return;
+      
+      if (confirm(`Approve ${currentProvider.legal_business_name}?`)) {
+        try {
+          // TODO: Update provider status
+          // const { error } = await supabase
+          //   .from('providers')
+          //   .update({ 
+          //     review_status: 'approved',
+          //     reviewed_at: new Date().toISOString(),
+          //     review_notes: document.getElementById('notesInput').value
+          //   })
+          //   .eq('id', currentProvider.id);
+
+          alert('Provider approved successfully!');
+          showProvidersList();
+          loadProviders();
+        } catch (err) {
+          console.error('Error approving provider:', err);
+        }
+      }
+    }
+
+    async function rejectProvider() {
+      if (!currentProvider) return;
+      
+      if (confirm(`Reject ${currentProvider.legal_business_name}?`)) {
+        try {
+          // TODO: Update provider status
+          alert('Provider rejected.');
+          showProvidersList();
+          loadProviders();
+        } catch (err) {
+          console.error('Error rejecting provider:', err);
+        }
+      }
+    }
+
+    function sendMessage() {
+      alert('Message functionality coming soon');
+    }
+
+    // Make functions global
+    window.showProvidersList = showProvidersList;
+    window.approveProvider = approveProvider;
+    window.rejectProvider = rejectProvider;
+    window.sendMessage = sendMessage;
+
+    init();
+  </script>
+</body>
+</html>
