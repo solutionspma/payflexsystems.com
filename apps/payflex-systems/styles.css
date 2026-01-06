@@ -702,7 +702,7 @@ img {
 
 .footer-brand p {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
 }
 
@@ -713,7 +713,7 @@ img {
 
 .footer-links a {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.9);
   transition: var(--transition);
 }
 
@@ -728,13 +728,13 @@ img {
 
 .footer-bottom p {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.85);
   text-align: center;
 }
 
 .footer-credit {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.75);
   margin-top: var(--spacing-sm);
 }
 
