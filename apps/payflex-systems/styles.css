@@ -243,10 +243,10 @@ img {
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 500;
-  color: var(--color-white);
+  color: #ffffff;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .hero-description {
@@ -665,14 +665,14 @@ img {
 /* Footer */
 .footer {
   background: var(--color-navy);
-  padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
+  padding: 1.25rem var(--spacing-md);
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: var(--spacing-lg);
+  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -722,7 +722,7 @@ img {
 }
 
 .footer-bottom {
-  padding-top: var(--spacing-md);
+  padding-top: 1rem;
   text-align: center;
 }
 
